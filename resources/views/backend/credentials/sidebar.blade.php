@@ -90,6 +90,24 @@
          </ul>
      </li>
 
+     <li class="sidebar-item {{ Route::is('dailyquiz*') ? 'active' : '' }} has-sub">
+        <a href="#" class='sidebar-link'>
+            <i class="bi bi-bookmark-plus-fill"></i>
+            <span>Daily Quiz</span>
+        </a>
+        <ul class="submenu {{ Route::is('dailyquiz*') ? 'active' : '' }}">
+            <li class="submenu-item {{ Route::is('dailyquiz-create') ? 'active' : '' }}">
+                <a href="{{ route('dailyquiz-create') }}">create</a>
+            </li>
+            <li class="submenu-item {{ Route::is('dailyquiz-list') ? 'active' : '' }}">
+                <a href="{{ route('dailyquiz-list') }}">list</a>
+            </li>
+            <li class="submenu-item {{ Route::is('admin-dailyquizleaderboard') ? 'active' : '' }}">
+                <a href="{{ route('admin-dailyquizleaderboard') }}">LeaderBoard</a>
+            </li>
+        </ul>
+    </li>
+
 
             {{-- end course sidebar --}}
 

@@ -2,34 +2,35 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
-use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Backend\CareerController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\User\UserDashboardController;
-use App\Http\Controllers\Backend\MediaCenterController;
-use App\Http\Controllers\Backend\BusinessPromotionController;
-use App\Http\Controllers\Backend\ArticleController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\AnnouncementController;
-use App\Http\Controllers\Backend\KathaController;
+use App\Http\Controllers\Test\TestController;
 use App\Http\Controllers\Backend\TeamController;
-use App\Http\Controllers\Backend\LibraryController;
-use App\Http\Controllers\Backend\LibraryCategoryController;
-use App\Http\Controllers\Backend\HinduismController;
-use App\Http\Controllers\Backend\CollaborationController;
+use App\Http\Controllers\Test\SubjectController;
 use App\Http\Controllers\Backend\EventController;
+use App\Http\Controllers\Backend\KathaController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Test\QuestionController;
+use App\Http\Controllers\Backend\CareerController;
+use App\Http\Controllers\Backend\ArticleController;
+use App\Http\Controllers\Backend\LibraryController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\HinduismController;
+use App\Http\Controllers\Backend\DailyQuizController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\DepartmentController;
+use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\Backend\Auth\SigninController;
+use App\Http\Controllers\Backend\MediaCenterController;
 use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Backend\AdminSettingController;
+use App\Http\Controllers\Backend\AnnouncementController;
 use App\Http\Controllers\Frontend\Auth\LogoutController;
+use App\Http\Controllers\Backend\CollaborationController;
 use App\Http\Controllers\Backend\JobClassifiedController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
+use App\Http\Controllers\Backend\LibraryCategoryController;
+use App\Http\Controllers\Backend\BusinessPromotionController;
 use App\Http\Controllers\Backend\Course\CourseDetailsController;
 use App\Http\Controllers\Backend\Course\CourseLectureController;
-use App\Http\Controllers\Backend\DepartmentController;
-use App\Http\Controllers\Test\QuestionController;
-use App\Http\Controllers\Test\TestController;
-use App\Http\Controllers\Test\SubjectController;
-use App\Http\Controllers\Backend\Auth\SigninController;
 use App\Http\Controllers\Backend\Course\CourseCategoryController;
 use App\Http\Controllers\Backend\Course\CourseQuestionController;
 use App\Http\Controllers\Backend\Course\CourseMaterialsController;
@@ -77,6 +78,9 @@ Route::middleware(['auth', 'redirect.only.admins'])->group(function () {
             Route::get('testimonialdelete/{id}', 'testimonialdelete')->name('testimonialdelete');
             Route::get('allusers', 'allUsers')->name('allusers');
             Route::get('deleteuser/{id}', 'deleteUser')->name('deleteuser');
+
+            Route::get('dailyquizleaderboard', 'dailyquizleaderboardshow')->name('dailyquizleaderboard');
+            Route::get('dailyquizleaderboarddelete/{id}', 'dailyquizleaderboarddelete')->name('dailyquizleaderboarddelete');
         });
     });
     Route::get('/user_update/{id}', [DashboardController::class, 'user_update'])->name('user_update');
@@ -405,6 +409,18 @@ Route::middleware(['auth', 'redirect.only.admins'])->group(function () {
     Route::prefix('question')->as('question-')->group(function () {
         Route::controller(QuestionController::class)->group(function () {
             Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/list', 'list')->name('list');
+            Route::get('delete/{id}', 'delete')->name('delete');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::put('update/{id}', 'update')->name('update');
+        });
+    });
+
+
+    Route::prefix('dailyquiz')->as('dailyquiz-')->group(function () {
+        Route::controller(DailyQuizController::class)->group(function () {
+            Route::get('/create', 'view')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/list', 'list')->name('list');
             Route::get('delete/{id}', 'delete')->name('delete');
