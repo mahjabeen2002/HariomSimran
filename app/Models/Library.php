@@ -14,12 +14,9 @@ class Library extends Model
         'title',
         'slug',
         'description',
-
-        'image',
-        'pdf',
+        'file',
         'meta_title',
         'meta_keyword',
-
         'meta_description',
         'status',
 

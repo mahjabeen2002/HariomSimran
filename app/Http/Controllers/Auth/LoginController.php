@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function view(){
-        return view('frontend.pages.auth.login');
+        return view('userside.auth.login');
     }
 
 
@@ -30,30 +30,30 @@ class LoginController extends Controller
     public function userLogin()
     {
         if (Auth::check()) {
-            if (Auth::user()->role == User::ROLE_STUDENT) {
+            if (Auth::user()->role == User::ROLE_USER) {
                 event(new \App\Events\UserLoggedIn(Auth::user()));
-                return view('frontend.pages.index')->with('message', 'Welcome to The Brain Battle Academy');
+                return view('userside.mainpage')->with('message', 'Welcome to The Hariom Simran');
             }
         } else {
-            return view('frontend.pages.auth.login');
+            return view('userside.auth.login');
         }
     }
     
     
 
 
-    private function redirectToRole($role)
-    {
+    // private function redirectToRole($role)
+    // {
 
-        switch ($role) {
-            case User::ROLE_ADMIN:
-                return redirect()->route('admin.dashboard');
-            case User::ROLE_MANAGER:
-                return redirect()->route('manager.dashboard');
-            default:
-                return redirect()->route('home');
-        }
-    }
+    //     switch ($role) {
+    //         case User::ROLE_ADMIN:
+    //             return redirect()->route('admin.dashboard');
+    //         case User::ROLE_MANAGER:
+    //             return redirect()->route('manager.dashboard');
+    //         default:
+    //             return redirect()->route('home');
+    //     }
+    // }
 
     // public function userAuthenticate(Request $request)
 
@@ -86,15 +86,13 @@ class LoginController extends Controller
     if (Auth::attempt($request->only('email', 'password'))) {
         $user = Auth::user();
 
-        if (!$user->role == User::ROLE_STUDENT) {
+        if (!$user->role == User::ROLE_USER) {
             Auth::logout();
-            return back()->with('error', 'Only users with role "Student" can access here.');
+            return back()->with('error', 'Only users with role "User" can access here.');
         }
 
-        // Update last login time
-        $user->update(['last_login_at' => now()]);
 
-        return redirect('home')->with('message', 'Welcome to The Brain Battle Academy');
+        return redirect('home')->with('message', 'Welcome to The  Hariom Simran');
     }
 
     return back()->with('error', 'The given credentials are invalid');

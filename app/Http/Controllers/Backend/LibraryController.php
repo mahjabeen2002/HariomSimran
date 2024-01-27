@@ -29,11 +29,10 @@ class LibraryController extends Controller
         'category_id' => 'required|exists:library_categories,id',
         'title' => 'required|string',
         'description' => 'required',
-        'image' => 'required|mimes:jpg,jpeg,png',
         'meta_title' => 'required|string',
         'meta_keyword' => 'required|string',
         'meta_description' => 'required|string',
-        'pdf' => 'required|mimes:pdf,doc,docx,txt,jpg,jpeg,png|max:2048', 
+        'file' => 'required|mimes:pdf,doc,docx,txt,jpg,jpeg,png|max:2048', 
     ]);
     
     if ($validator->fails()) {
@@ -51,25 +50,18 @@ class LibraryController extends Controller
         'meta_title' => $request->input('meta_title'),
         'meta_keyword' => $request->input('meta_keyword'),
         'meta_description' => $cleanmetaDescription,
+        'file' => '', 
     ]);
     
-    if ($request->hasFile('pdf')) {
-        $file = $request->file('pdf');
+    if ($request->hasFile('file')) {
+        // Handle image upload only if it's present in the request
+        $file = $request->file('file');
         $ext = $file->getClientOriginalExtension();
         $filename = time() . '.' . $ext;
-    
-        $file->move('uploads/librarypdf/', $filename);
-    
-        $library->pdf = $filename;
-    }
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $ext = $file->getClientOriginalExtension();
-        $filename = time() . '.' . $ext;
-    
-        $file->move('uploads/library/', $filename);
-    
-        $library->image = $filename;
+
+        $file->move('uploads/Library/', $filename);
+
+        $library->file = $filename;
         $library->save();
     }
     
@@ -102,11 +94,10 @@ class LibraryController extends Controller
             'category_id' => 'required|exists:library_categories,id',
             'title' => 'required|string',
             'description' => 'required',
-            'image' => 'nullable|mimes:jpg,jpeg,png',
             'meta_title' => 'required|string',
             'meta_keyword' => 'required|string',
             'meta_description' => 'required|string',
-            'pdf' => 'required|mimes:pdf,doc,docx,txt,jpg,jpeg,png|max:2048', 
+            'file' => 'nullable|mimes:pdf,doc,docx,txt,jpg,jpeg,png|max:2048',
         ]);
     
         if ($validator->fails()) {
@@ -128,45 +119,36 @@ class LibraryController extends Controller
 
         $library->meta_description =$cleanmetaDescription;
        
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        if ($request->hasFile('file')) {
+            // Handle image upload only if it's present in the request
+            $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
     
-            $file->move('uploads/library/', $filename);
+            $file->move('uploads/Library/', $filename);
     
-            // Delete the previous image file if it exists
-            if (!empty($library->image)) {
-                $oldImagePath = 'uploads/library/' . $library->image;
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-    
-            $library->image = $filename;
-        }
-        if ($request->hasFile('pdf')) {
-            $file = $request->file('pdf');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $ext;
-    
-            $file->move('uploads/librarypdf/', $filename);
-    
-            // Delete the previous image file if it exists
-            if (!empty($library->pdf)) {
-                $oldPdfPath = 'uploads/librarypdf/' . $library->pdf;
-                if (file_exists($oldPdfPath)) {
-                    unlink($oldPdfPath);
-                }
-            }
-    
-            $library->pdf = $filename;
+            $library->file = $filename;
+            $library->save();
         }
     
 
         $library->save();
     
         return redirect()->route('library-list')->with('info', 'Data Updated Successfully');
+    }
+
+
+    public function download($id)
+    {
+        $library = Library::findOrFail($id);
+    
+        // Assuming 'file' column contains the file path in your database
+        $filePath = public_path('uploads/Library/' . $library->file);
+
+    
+        // You can add more logic to check file existence, permissions, etc.
+    
+        return response()->download($filePath, $library->file);
     }
     
     }

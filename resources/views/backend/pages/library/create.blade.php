@@ -57,22 +57,14 @@
                                   </div>
                                   <div class="col-12">
                                     <div class="form-group">
-                                        <label for="file">Pdf File</label>
-                                        <input type="file" class="form-control" name="pdf" accept=".pdf, .doc, .docx, .txt, .jpg, .jpeg, .png" />
-                                        @error('pdf')
+                                        <label for="file">File</label>
+                                        <input type="file" class="form-control" name="file" accept=".pdf, .doc, .docx, .txt, .jpg, .jpeg, .png" />
+                                        @error('file')
                                             <div class="text-danger text-sm"><small>{{ $message }}</small></div>
                                         @enderror
                                     </div>
                                 </div>
-                                  <div class="col-12">
-                                      <div class="form-group">
-                                          <label for="image">Image</label>
-                                          <input type="file" class="form-control" name="image" placeholder="Image" value="{{ old('image') }}" />
-                                          @error('image')
-                                          <small class="text-danger">{{ $message }}</small>
-                                          @enderror
-                                      </div>
-                                  </div>
+                                 
                                  
                                   <h4 class="mt-3">SEO Tags</h4>
                                   <div class="col-12">

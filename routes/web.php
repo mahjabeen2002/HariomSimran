@@ -2,16 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Test\TestController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Test\SubjectController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Backend\EventController;
 use App\Http\Controllers\Backend\KathaController;
-use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Test\QuestionController;
 use App\Http\Controllers\Backend\CareerController;
 use App\Http\Controllers\Backend\ArticleController;
 use App\Http\Controllers\Backend\LibraryController;
+use App\Http\Controllers\Student\SettingController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\HinduismController;
 use App\Http\Controllers\Backend\DailyQuizController;
@@ -20,14 +24,12 @@ use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\Backend\Auth\SigninController;
 use App\Http\Controllers\Backend\MediaCenterController;
-use App\Http\Controllers\Frontend\Auth\LoginController;
 use App\Http\Controllers\Backend\AdminSettingController;
 use App\Http\Controllers\Backend\AnnouncementController;
-use App\Http\Controllers\Frontend\Auth\LogoutController;
 use App\Http\Controllers\Backend\CollaborationController;
 use App\Http\Controllers\Backend\JobClassifiedController;
-use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Backend\LibraryCategoryController;
+use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\Backend\BusinessPromotionController;
 use App\Http\Controllers\Backend\Course\CourseDetailsController;
 use App\Http\Controllers\Backend\Course\CourseLectureController;
@@ -153,7 +155,7 @@ Route::middleware(['auth', 'redirect.only.admins'])->group(function () {
             Route::get('delete/{id}', 'delete')->name('delete');
             Route::get('edit/{id}', 'edit')->name('edit');
             Route::put('update/{id}', 'update')->name('update');
-            Route::get('delete_image/{id}', 'destroyimage')->name('delete_image');
+            Route::get('download/{id}', 'download')->name('download');
         });
     });
     //librarycategory Routes
@@ -443,3 +445,82 @@ Route::controller(LoginController::class)->group(function () {
 Route::controller(LogoutController::class)->group(function () {
     Route::get('/user/logout', 'userLogout')->name('user.logout');
 });
+
+
+
+Route::middleware(['auth', 'redirect.only.user'])->group(function () {
+    Route::prefix('student')->as('student-')->group(function () {
+        Route::get('dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
+        Route::get('list', [StudentDashboardController::class, 'show'])->name('list');
+        Route::get('delete/{id}', [StudentDashboardController::class, 'delete'])->name('delete');
+        Route::get('dailyquizresult', [StudentDashboardController::class, 'dailyquizresultshow'])->name('dailyquizresult');
+        Route::get('dailyquizresultdelete/{id}', [StudentDashboardController::class, 'dailyquizresultdelete'])->name('dailyquizresultdelete');
+
+    });
+
+
+    //USAMA => Setting Routes Put her for middleware 
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/changepasswordget', 'changepasswordget');
+        Route::post('/changepassword', 'changepassword')->name('change.password');
+        Route::get('/youraccount', 'youraccount');
+        Route::get('/setting/{id}', 'setting')->name('setting');
+        Route::post('/settingpost/{id}', 'settingpost')->name('settingpost');
+    });
+
+
+    //Daily Quiz View Routes
+    // Route::get('dailyquiz', [HomeController::class, 'dailyquizshow'])->name('dailyquiz');
+    // Route::post('/submit/daily', [HomeController::class, 'submitdailyTest'])->name('submit.daily');
+   
+
+});
+// Route::get('/certificate', [HomeController::class,  "certificate"]);
+// Route::post('/search',[HomeController::class, "search"]);
+
+Route::controller(HomeController::class)->group(function () {
+    // group discussion
+Route::get('/', 'mainpage');
+Route::get('home', 'mainpage');
+Route::get('allhinduism','allhinduism')->name('allhinduism');
+Route::get('hinduism/{slug}', 'hinduism')->name('hinduism');
+Route::get('hinduismdetail/{slug}', 'hinduismdetail')->name('hinduismdetail');
+
+Route::get('allarticle','allarticle')->name('allarticle');
+Route::get('article/{slug}', 'article')->name('article');
+Route::get('articledetail/{slug}', 'articledetail')->name('articledetail');
+
+Route::get('allcollaboration','allcollaboration')->name('allcollaboration');
+Route::get('collaboration/{slug}', 'collaboration')->name('collaboration');
+Route::get('collaborationdetail/{slug}', 'collaborationdetail')->name('collaborationdetail');
+
+Route::get('allkatha','allkatha')->name('allkatha');
+Route::get('katha/{slug}', 'katha')->name('katha');
+Route::get('kathadetail/{slug}', 'kathadetail')->name('kathadetail');
+
+Route::get('all_courses','ourcouse')->name('all_courses');
+Route::get('coursecategory/{slug}', 'categoryCourses')->name('coursecategory');
+Route::get('course_detail/{slug}', 'courseDetails')->name('course_detail');
+
+Route::get('/jobclassified',  'jobclassified');
+Route::get('/jobclassifieddetail/{slug}', 'jobclassifieddetail');
+Route::get('/mediacenter',  'mediacenter');
+Route::get('/mediacenterdetail/{slug}', 'mediacenterdetail');
+
+Route::get('testyourskills', 'testyourskill')->name('testyourskills');
+Route::get('department', 'departments')->name('department');
+Route::get('department_subjects/{slug}', 'Departsubjects')->name('department_subjects');
+Route::get('subject_test/{slug}', 'showTest')->name('subject_test');
+Route::post('/subject/{subjectId}/test/submit', 'submitTest')->name('test.submit');
+Route::get('testresult', 'testresult')->name('testresult');
+});
+//navbar jquery
+Route::get('/Navbar',[HomeController::class,"Navbar"]);
+Route::post('/categorylist',[HomeController::class,"categorylist"]);
+Route::get('/eventcat',[HomeController::class,"eventcat"]);
+Route::get('/mediacat',[HomeController::class,"mediacat"]);
+Route::get('/artcat',[HomeController::class,"artcat"]);
+Route::get('/storycat',[HomeController::class,"storycat"]);
+Route::get('/hindicat',[HomeController::class,"hindicat"]);
+Route::get('/temcat',[HomeController::class,"temcat"]);
+Route::get('/collabcat',[HomeController::class,"collabcat"]);

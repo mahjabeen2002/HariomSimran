@@ -64,7 +64,7 @@
                                         <th scope="col">Video Url</th>
                                         <th scope="col">Status</th>
 
-                                        <th scope="col">Image</th>
+                                        <th scope="col">File</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -76,9 +76,11 @@
 
                                             <td>{{ $library->description }}</td>
                                             <td>{{ $library->status == '1' ? 'Hidden' : 'Visible' }}</td>
-                                            <td><img style="height:50px; width:50px;"
-                                                    src="{{ asset('/uploads/library/' . $library->image) }}"
-                                                    alt=""></td>
+                                            <td>
+                                                <a href="{{ route('library-download', ['id' => $library->id]) }}" target="_blank">
+                                                    {{ $library->file }}
+                                                </a>
+                                            </td>
                                             <td>
                                                 <div style="display: flex; align-items: center;">
                                                     <a href="{{ route('library-delete', ['id' => $library->id]) }}"

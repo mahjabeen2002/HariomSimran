@@ -64,14 +64,17 @@
                                         <input type="hidden" name="description" id="hidden-editor-input">
                                     </div>
                                 </div>
-                                  <div class="col-12">
-                                      <div class="form-group">
-                                          <label for="image">Image</label>
-                                          <input type="file" class="form-control"  name="image" >
-                                          <img style="height:50px; width:50px;" src="{{asset('/uploads/library/'.$library->image)}}" alt="">
-                                        
-                                      </div>
-                                  </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="file">File</label>
+                                        <input type="file" class="form-control" name="file" accept=".pdf, .doc, .docx, .txt, .jpg, .jpeg, .png" />
+                                        @if ($library->file)
+                                        <p>Existing File: {{ $library->file }}</p>
+                                    @else
+                                        <p>No file uploaded.</p>
+                                    @endif
+                                    </div>
+                                </div>
                                   
                                   <h4 class="mt-3">SEO Tags</h4>
                                   <div class="col-12">

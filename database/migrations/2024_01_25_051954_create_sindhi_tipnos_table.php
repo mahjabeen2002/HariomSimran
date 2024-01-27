@@ -13,16 +13,12 @@ return new class extends Migration
     {
         Schema::create('sindhi_tipnos', function (Blueprint $table) {
             $table->id();
-            
             $table->string('title');
             $table->string('slug')->nullable();
-            $table->date('date');
+            $table->date('start');
+            $table->date('end');
             $table->longText('description');
             $table->string('image')->nullable();
-           
-            $table->string('meta_title');
-            $table->string('meta_keyword');
-            $table->mediumText('meta_description');
             $table->enum('status', ['active', 'inactive'])->default('active'); 
             $table->timestamps();
         });
