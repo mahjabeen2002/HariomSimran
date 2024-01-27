@@ -29,18 +29,18 @@
   <div class="container">
     <div class="row">
 
-      @foreach($fetchbus as $fb)
+      @foreach($fetch as $fb)
 
       <div class="col-lg-4 col-md-6">
-        <a href="/mantradetail/{{$fb->Title}}/{{$fb->id}}" class="sigma_service style-2">
+        <a href="/mantradetail/{{$fb->slug}}" class="sigma_service style-2">
           <div class="sigma_service-thumb">
-          <img  src="/busimages/{{$fb->image}}" style="height: 200px;width: 100%" alt="img">
+          <img  src="{{ asset('/uploads/businesspromotion/' . $fb->image) }}" style="height: 200px;width: 100%" alt="img">
             <i class="flaticon-powder"></i>
           </div>
           <div class="sigma_service-body">
-            <h5>{{$fb->Title}}</h5>
+            <h5>{{$fb->title}}</h5>
             <p><?php
-              $f1 = strip_tags($fb->short_Des);
+              $f1 = strip_tags($fb->description);
               $f2 = Str::limit($f1,50);
             
              ?> {{$f2}} </p>
@@ -50,7 +50,7 @@
 @endforeach
     </div>
     <ul class="pagination mb-0">
-      {{$fetchbus->links()}}
+      {{$fetch->links()}}
     </ul>
   </div>
 </div>
