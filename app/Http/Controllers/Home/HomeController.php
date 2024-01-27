@@ -8,6 +8,8 @@ use Auth;
 use DB;
 use Session;
 use App\Models\Katha;
+use App\Models\Team;
+use App\Models\Contact;
 use App\Models\Hinduism;
 use App\Models\TempleHistory;
 use App\Models\MediaCenter;
@@ -18,7 +20,6 @@ use App\Models\Event;
 use App\Models\JobClassified;
 
 use App\Models\CourseCategory;
-use App\Models\Contactus;
 use App\Models\Category;
 use App\Models\BusinessPromotion;
 use App\Models\Story;
@@ -64,7 +65,61 @@ class HomeController extends Controller
     {
         return view('userside.layout');
     }
+    public function aboutus()
+    {
+        return view('userside.about');
+    }
 
+    public function contactus()
+    {
+        return view('userside.contact');
+    }
+
+    public function contactuspost(Request $req)
+    {
+        $contactmodel = new Contact();
+        $contactmodel->name = $req->insertname;
+        $contactmodel->email = $req->insertemail;
+        $contactmodel->phone = $req->insertphone;
+        $contactmodel->message = $req->insertmessage;
+        $contactmodel->save();
+        return redirect()->back()->with('sent', 'Message Has Been Submitted...');
+    }
+
+    
+    public function certificate()
+    {
+        return view('userside.certificate');
+    }
+   
+    public function search(Request $request)
+    {
+        
+            
+            $certificate = Certificate::where('verification_code', 'LIKE', '%' .$request->search_input. '%')->get();
+            return view('userside.certificate', compact('certificate'));
+   
+    }
+    public function membership()
+    {
+        return view('userside.membershipform');
+    }
+
+    public function membershipformpost(Request $req)
+    {
+        $member = new Membership();
+        $member->first_name = $req->firstname;
+        $member->last_name = $req->lastname;
+        $member->email = $req->email;
+        $member->country = $req->country;
+        $member->city = $req->city;
+        $member->address = $req->address;
+        $member->age = $req->age;
+        $member->gender = $req->gender;
+        $member->religion = $req->religion;
+        $member->save();
+        return redirect()->back()->with('submit', 'Message Has Been Submitted...');
+    }
     public function Navbar(Request $req)
     {
 
@@ -171,6 +226,19 @@ class HomeController extends Controller
         $fetchmediade = Hinduism::where('slug',$slug)->first();
         return view('userside.hinduismdetail', compact('fetchmediade'));
     }
+    public function team()
+    {
+        $fetchc = Team::count();
+        $fetch = Team::paginate(6);
+        return view('userside.team', compact('fetch','fetchc'));
+    }
+
+    public function teamdetail($slug)
+    {
+        $related = Team::where('slug', '!=', $slug)->limit(8)->get();
+        $fetch = Team::where('slug', $slug)->first();
+        return view('userside.teamdetail', compact('related', 'fetch'));
+    }
     public function mediacenter()
     {
         $fetchc = MediaCenter::count();
@@ -183,6 +251,33 @@ class HomeController extends Controller
         $related = MediaCenter::where('slug', '!=', $slug)->limit(8)->get();
         $mediacenter = MediaCenter::where('slug', $slug)->first();
         return view('userside.mediacenterdetail', compact('related', 'mediacenter'));
+    }
+    public function jobclassified()
+    {
+        $fetchc = JobClassified::count();
+        $fetch = JobClassified::paginate(6);
+        return view('userside.jobclassified', compact('fetch','fetchc'));
+    }
+
+    public function jobclassifieddetail($slug)
+    {
+        $related = JobClassified::where('slug', '!=', $slug)->limit(8)->get();
+        $fetch = JobClassified::where('slug', $slug)->first();
+        return view('userside.jobclassifieddetail', compact('related', 'fetch'));
+    }
+
+    public function businesspromotion()
+    {
+        $fetchc = BusinessPromotion::count();
+        $fetch = BusinessPromotion::paginate(6);
+        return view('userside.business', compact('fetch','fetchc'));
+    }
+
+    public function businesspromotiondetail($slug)
+    {
+        $related = BusinessPromotion::where('slug', '!=', $slug)->limit(8)->get();
+        $fetch = BusinessPromotion::where('slug', $slug)->first();
+        return view('userside.businessdetail', compact('related', 'fetch'));
     }
 
     public function allarticle()
@@ -204,7 +299,46 @@ class HomeController extends Controller
         $fetchart = Article::where('slug',$slug)->first();
         return view('userside.articledetail', compact('fetchart'));
     }
+
+    public function allannouncement()
+    {
+        $fetchacat = Category::all();
+        $fetch = Announcement::paginate(6);
+        $fetchc = Announcement::count();
+        return view('userside.allannouncement', compact('fetch','fetchacat','fetchc'));
+    }
+
+    public function announcement($slug)
+    {  $fetchacat = Category::all();
+        $fetch = Announcement::where('category_id',$slug)->paginate(6);
+        $fetchc = Announcement::where('category_id',$slug)->count();
+        return view('userside.announcement', compact('fetch','fetchc','fetchacat'));
+    }
+    public function announcementdetail($slug)
+    {
+        $fetch = Announcement::where('slug',$slug)->first();
+        return view('userside.announcementdetail', compact('fetch'));
+    }
     
+    public function allevent()
+    {
+        $fetchacat = Category::all();
+        $fetch = Event::paginate(6);
+        $fetchc = Event::count();
+        return view('userside.allevent', compact('fetch','fetchacat','fetchc'));
+    }
+
+    public function event($slug)
+    {  $fetchacat = Category::all();
+        $fetch = Event::where('category_id',$slug)->paginate(6);
+        $fetchc = Event::where('category_id',$slug)->count();
+        return view('userside.event', compact('fetch','fetchc','fetchacat'));
+    }
+    public function eventdetail($slug)
+    {
+        $fetch = Event::where('slug',$slug)->first();
+        return view('userside.eventdetail', compact('fetch'));
+    }
     public function allcollaboration()
     {
         $fetchacat = Category::all();

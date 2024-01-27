@@ -2,13 +2,13 @@
 @section("title")
 <head>
 <?php
-    $ptitle = str_replace(' ', '%20', $fetchande->headline);
-    $pdes = strip_tags($fetchande->long_des);
+    $ptitle = str_replace(' ', '%20', $fetch->title);
+    $pdes = strip_tags($fetch->description);
     ?>
-     <title> {{$fetchande->headline}}</title>
+     <title> {{$fetch->title}}</title>
 <meta name="description" content="{{$pdes}}" />
-<meta property="og:image" content="http://hariomsimran.com/annimages/{{$fetchande->image}}" />
-<meta property="og:url" content="http://hariomsimran.com/userandetail/{{$ptitle}}/{{$fetchande->id}}" />
+<meta property="og:image" content="http://hariomsimran.com/uploads/announcement/{{$fetch->image}}" />
+<meta property="og:url" content="http://hariomsimran.com/announcementdetail/{{$fetch->slug}}" />
 <meta property="og:type" content="website" /> 
 <meta name="keywords" content="learndigital" />
 </head>
@@ -40,13 +40,13 @@
       <div class="row">
         <div class="col-md-4">
           <div class="thumb">
-            <img src="/annimages/{{$fetchande->image}}" alt="" width="300px" height="300px">
+            <img src="{{ asset('/uploads/announcement/' . $fetch->image) }}" alt="{{ $fetch->title }}" width="300px" height="300px">
           </div>
           <br>
           <ul>
             <h3>Share On:</h3>
           <?php
-                                $url = urlencode("http://hariomsimran.com/userandetail/$ptitle/$fetchande->id");
+                                $url = urlencode("http://hariomsimran.com/announcementdetail/$fetch->slug");
                                 ?> <a style="background-color:#f0c2c2" target="_blank" href="https://www.facebook.com/sharer.php?u={{$url}}" class="btn btn--small btn--secondary fab fa-facebook-f" title="Share on Facebook">
                                     <i style="color:black" class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title sizeicon" aria-hidden="true"></span>
                                 </a>
@@ -62,17 +62,16 @@
          </ul>
         </div>
         <div class="col-md-8">
-          <h3 class="name font-24 mt-0 mb-0" style="font-size: 40px">{{$fetchande->headline}}</h3>
-          <h5 class="mt-5">{{$fetchande->a_date}}</h5>
-
+          <h3 class="" style="font-size: 30px">{{$fetch->title}} </h3>
+          <a class="sigma_post-date"> <i class="far fa-calendar"></i><span>{{$fetch->date}}</span></a>
           <?php
 
-          $pv = DB::table('allcategorytbls')->where('id',$fetchande->type)->first();
+          $pv = DB::table('categories')->where('id',$fetch->category_id)->first();
           ?>
-          <h5 class="mt-5">Category : {{$pv->category_name}}</h5> 
-          <p>{!! html_entity_decode($fetchande->long_des) !!}.</p>
+         <a class="sigma_post-date">   <i class="fas fa-om"></i> <span>{{$pv->title}}</span> </a>
+          <p>{!! html_entity_decode($fetch->description) !!}.</p>
 
-          <iframe width="560" height="315" src="{{$fetchande->video_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="{{$fetch->videourl}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
           <p></p>
          

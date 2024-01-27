@@ -83,7 +83,7 @@
                 <div class="form-group col-md-6">
                       <label for="">Gender</label>
                       <select class=" form-control" aria-label="Default select example" name="gender">
-                        <option selected>Select Gende</option>
+                        <option selected>Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                       </select>

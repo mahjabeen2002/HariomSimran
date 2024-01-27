@@ -12,12 +12,12 @@
   <div class="container">
     <div class="sigma_subheader-inner">
       <div class="sigma_subheader-text">
-        <h1>Media Center Category</h1>
+        <h1>Media Center</h1>
       </div>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a class="btn-link" href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Media Center->Category</li>
+          <li class="breadcrumb-item active" aria-current="page">Media Center</li>
         </ol>
       </nav>
     </div>

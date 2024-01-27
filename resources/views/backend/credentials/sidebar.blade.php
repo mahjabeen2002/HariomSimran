@@ -138,7 +138,20 @@
 
              
 
-              
+            <li class="sidebar-item {{ Route::is('certificate*') ? 'active' : '' }} has-sub">
+                <a href="#" class='sidebar-link'>
+                    <i class="bi bi-bookmark-plus-fill"></i>
+                    <span>Certificate</span>
+                </a>
+                <ul class="submenu {{ Route::is('certificate*') ? 'active' : '' }}">
+                    <li class="submenu-item {{ Route::is('create_certificate') ? 'active' : '' }}">
+                        <a href="{{ route('create_certificate') }}">create</a>
+                    </li>
+                    <li class="submenu-item {{ Route::is('list_certificatet') ? 'active' : '' }}">
+                        <a href="{{ route('list_certificate') }}">list</a>
+                    </li>
+                </ul>
+            </li>
                 
                 <li class="sidebar-item {{ Route::is('mediacenter*') ? 'active' : '' }} has-sub">
                     <a href="#" class='sidebar-link'>

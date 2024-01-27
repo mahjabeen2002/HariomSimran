@@ -430,7 +430,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
              
             </li>
              <li class="menu-item">
-              <a href="/about">About Us</a>
+              <a href="/aboutus">About Us</a>
              
             </li>
             <li class="menu-item menu-item-has-children">
@@ -507,7 +507,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
            
           </li>
           <li class="menu-item ">
-            <a href="/testyourskill">Membership Form</a>
+            <a href="/membership">Membership Form</a>
            
           </li>
        </ul>
@@ -531,31 +531,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
               <div class="navbar p-0 shadow-none bg-transparent">
                 <ul class="navbar-nav">
                   <li class="menu-item ">
-                   <a href="/membershipformget">Membership</a> 
-                  </li> 
-              @if(session('ida'))
+                   <a href="/membership">Membership</a> 
+                  </li>
+                  @auth 
+                  @if (Auth::user()->role == 'Admin')
               <li class="menu-item ">
-                <a href="/tcategoryfetch">My Dashboard</a>
+                <a href="{{ route('admin-dashboard') }}">My Dashboard</a>
               </li>
              <li class="menu-item ">
-              <a href="/logout">Logout</a>
+              <a href="{{ route('admin.logout') }}">Logout</a>
            </li>
-             @elseif(session('id1')) 
+           @elseif(Auth::user()->role == 'User')
              <li class="menu-item ">
-              <a href="/user_profile">My Dashboard</a>
+              <a href="{{ route('user-dashboard') }}">My Dashboard</a>
             </li>
            <li class="menu-item ">
-            <a href="/stlogout">Logout</a>
+            <a href="{{ route('user.logout') }}">Logout</a>
          </li>
-           
-           @else
+         @endif
+         @else
            <li class="menu-item ">
             <a href="{{route('login.form')}}">Login</a>
           </li>
          <li class="menu-item ">
           <a href="{{route('register.form')}}">Register</a> 
        </li>
-        @endif
+       @endauth
          <li class="menu-item ">
     <a  href="/certificate">Verify Certificate</a>
                   </li> 
@@ -597,7 +598,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
                   <a href="/">Home</a>
                   
                 </li>
-                <li class="menu-item"> <a href="/about">About</a> </li>
+                <li class="menu-item"> <a href="/aboutus">About</a> </li>
                  <li class="menu-item menu-item-has-children">
 
                   <a href="javascript:void(0)">Hinduism</a>
@@ -842,11 +843,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
           <div class="col-xl-3 col-lg-2 col-md-4 col-sm-12 footer-widget">
             <h5 class="widget-title">Information</h5>
             <ul>
-              <li><a href="/allhinduism">Hinduism</a></li>
+              <li><a href="/allhinduisms">Hinduism</a></li>
               <li><a href="/alluserstory">Kids Stories</a></li>
-              <li><a href="/alltemple">Temples</a></li>
-              <li><a href="/allcollaboration">Collaborations</a></li>
-              <li><a href="/mantra">Mantra</a></li>
+              <li><a href="/alltemples">Temples</a></li>
+              <li><a href="/allcollaborations">Collaborations</a></li>
+              <li><a href="/mantras">Mantra</a></li>
                <li>
                   <a href="/terms">Terms & Condition</a>
                 </li>
@@ -859,9 +860,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
             <h5 class="widget-title">Services</h5>
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/alluserevent">Events</a></li>
-              <li><a href="/mediacenter">Media Center</a></li>
+              <li><a href="/aboutus">About Us</a></li>
+              <li><a href="/allevents">Events</a></li>
+              <li><a href="/mediacenters">Media Center</a></li>
               <li><a href="/alllibrary">Library</a></li>
                <li>
                   <a href="/privacy">Privacy Policy</a>
@@ -872,13 +873,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
           <div class="col-xl-3 col-lg-2 col-md-4 col-sm-12 footer-widget">
             <h5 class="widget-title">Others</h5>
             <ul>
-              <li><a href="/allarticle">Articles</a></li>       
+              <li><a href="/allarticles">Articles</a></li>       
               <li><a href="/sindhitipno">Sindhi Tipno</a></li>
-              <li><a href="/contact">Contact us</a></li>
+              <li><a href="/contactus">Contact us</a></li>
 
-              <li><a href="/alluseran">Annoucement</a></li>
-             <li><a href="/jobclassified">Job Classified</a></li>
-             <li><a href="/allkatha">Katha</a></li>
+              <li><a href="/allannouncements">Annoucement</a></li>
+             <li><a href="/jobclassifieds">Job Classified</a></li>
+             <li><a href="/allkathas">Katha</a></li>
             </ul>
           </div>
         </div>

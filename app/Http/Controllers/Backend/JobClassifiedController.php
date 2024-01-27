@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Models\Country;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\JobClassified;
@@ -15,16 +15,16 @@ class JobClassifiedController extends Controller
     
     public function view()
     {
-        $country=Country::all();
-        return view('backend.pages.jobclassified.create',compact('country'));
+        
+        return view('backend.pages.jobclassified.create');
     }
 
     public function show()
     {
         $jobclassified=JobClassified::all();
-        $country=Country::all();
+  
 
-        return view('backend.pages.jobclassified.list',compact('jobclassified','country'));
+        return view('backend.pages.jobclassified.list',compact('jobclassified'));
     
     }
 
@@ -38,7 +38,6 @@ class JobClassifiedController extends Controller
             'meta_title' => 'required|string',
             'meta_keyword' => 'required|string',
             'meta_description' => 'required|string',
-            'countryid' => 'required|exists:countries,id',
         ]);
     
         if ($validator->fails()) {
@@ -52,7 +51,6 @@ class JobClassifiedController extends Controller
         $jobclassified = JobClassified::create([
             'title' => $request->input('title'),
             'slug' => $slug,
-            'countryid' => $request->input('countryid'),
             'description' => $cleanDescription,
             'meta_title' => $request->input('meta_title'),
             'meta_keyword' => $request->input('meta_keyword'),
@@ -88,8 +86,7 @@ class JobClassifiedController extends Controller
 
     public function edit($id){
         $jobclassified=JobClassified::find($id);
-        $country=Country::all();
-        return view('backend.pages.jobclassified.edit',compact('jobclassified','country'));
+        return view('backend.pages.jobclassified.edit',compact('jobclassified'));
 
     }
     public function update(Request $request, $id)
@@ -101,7 +98,6 @@ class JobClassifiedController extends Controller
             'meta_title' => 'required|string',
             'meta_keyword' => 'required|string',
             'meta_description' => 'required|string',
-            'countryid' => 'required|exists:countries,id',
         ]);
     
         if ($validator->fails()) {
@@ -115,7 +111,6 @@ class JobClassifiedController extends Controller
             
         $cleanDescription = strip_tags($request->input('description'));
         $cleanmetaDescription = strip_tags($request->input('meta_description'));
-        $jobclassified->countryid = $request->input('countryid');
         $jobclassified->title = $request->input('title');
         $jobclassified->slug = $slug;
         $jobclassified->description =  $cleanDescription;
