@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Session;
+use App\Models\Lecture;
+use App\Models\CourseSubCategory;
+use App\Models\CourseDetails;
+use App\Models\CourseReview;
 use App\Models\Katha;
 use App\Models\Team;
 use App\Models\Contact;
@@ -377,4 +381,52 @@ class HomeController extends Controller
         $fetch = Katha::where('slug',$slug)->first();
         return view('userside.kathadetail', compact('fetch'));
     }
+
+    public function ourcouse()
+    {
+        $courses = CourseSubCategory::all();
+        return view('userside.courses', compact('courses'));
+    }
+
+    public function courseDetails($slug)
+    {
+        $subCategory = CourseSubCategory::where('slug', $slug)
+            ->with(['lectures', 'materials', 'reviews']) // Include the 'reviews' relationship
+            ->firstOrFail();
+
+        $courseDetails = CourseDetails::where('subcategory_id', $subCategory->id)->firstOrFail();
+        $relatedCourses = CourseDetails::where('subcategory_id', $subCategory->id)
+            ->where('id', '!=', $courseDetails->id)
+            ->limit(6)
+            ->get();
+
+        $lectureCount = Lecture::where('course_subcategory_id', $subCategory->id)->count();
+
+        return view('userside.coursedetail', compact('subCategory', 'courseDetails', 'relatedCourses', 'lectureCount'));
+    }
+
+
+    public function reviewstore(Request $request)
+    {
+        $request->validate([
+            'course_subcategory_id' => 'required|exists:course_sub_categories,id',
+            'comment' => 'required',
+            'rating' => 'required|integer|between:1,5',
+        ]);
+
+        $user = auth()->user();
+
+        $review = new CourseReview([
+            'user_id' => $user->id,
+            'course_subcategory_id' => $request->course_subcategory_id,
+            'comment' => $request->comment,
+            'rating' => $request->rating,
+            'status' => 'active', // Adjust as needed
+        ]);
+
+        $review->save();
+
+        return redirect()->back()->with('success', 'Review added successfully.');
+    }
+
 }

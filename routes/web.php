@@ -534,6 +534,9 @@ Route::get('kathadetail/{slug}', 'kathadetail')->name('kathadetail');
 Route::get('all_courses','ourcouse')->name('all_courses');
 Route::get('coursecategory/{slug}', 'categoryCourses')->name('coursecategory');
 Route::get('course_detail/{slug}', 'courseDetails')->name('course_detail');
+Route::post('/course-reviews',"reviewstore")->name('course-reviews.store');
+
+
 
 Route::get('/jobclassifieds',  'jobclassified');
 Route::get('/jobclassifieddetail/{slug}', 'jobclassifieddetail');

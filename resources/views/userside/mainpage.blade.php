@@ -333,7 +333,7 @@
                         style="height: 350px;width: 100%" alt="{{$fc->name}}">
                         <div class="sigma_portfolio-item-content" style="background-color: rgb(211, 202, 202)">
                             <div class="sigma_portfolio-item-content-inner">
-                                <a href="#">{{ $fc->name }}</a>
+                                <a href="/all_courses">{{ $fc->name }}</a>
                                 <h5> <a href="/all_courses">
                                     </a> </h5>
                             </div>
