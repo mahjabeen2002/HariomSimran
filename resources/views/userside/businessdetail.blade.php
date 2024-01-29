@@ -8,7 +8,11 @@
     <title> {{$fetchbdetail->Title}}</title>
 <meta name="description" content="{{$pdes}}" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 <meta property="og:image" content="http://hariomsimran.com/uploads/businesspromotion/{{$fetch->image}}" />
+=======
+<meta property="og:image" content="http://hariomsimran.com/busimages/{{$fetch->image}}" />
+>>>>>>> parent of 50a6e01 (frontend fetching and backend certificate too)
 <meta property="og:url" content="http://hariomsimran.com/mantradetail/{{$ptitle}}/{{$fetch->id}}" />
 =======
 <meta property="og:image" content="http://hariomsimran.com/busimages/{{$fetchbdetail->image}}" />
@@ -51,10 +55,14 @@
             <h3>Share On:</h3>
           <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 $url = urlencode("http://hariomsimran.com/mantradetail/$fetch->slug");
 =======
                                 $url = urlencode("http://hariomsimran.com/mantradetail/$ptitle/$fetchbdetail->id");
 >>>>>>> parent of 96f427c (fetching done)
+=======
+                                $url = urlencode("http://hariomsimran.com/mantradetail/$ptitle/$fetch->id");
+>>>>>>> parent of 50a6e01 (frontend fetching and backend certificate too)
                                 ?> <a style="background-color:#f0c2c2" target="_blank" href="https://www.facebook.com/sharer.php?u={{$url}}" class="btn btn--small btn--secondary fab fa-facebook-f" title="Share on Facebook">
                                     <i style="color:black" class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title sizeicon" aria-hidden="true"></span>
                                 </a>
@@ -75,11 +83,15 @@
         
 <<<<<<< HEAD
           <p>{!! html_entity_decode($fetch->description) !!}.</p>
+<<<<<<< HEAD
           <iframe width="560" height="315" src="{{$fetch->videourl}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 =======
           <p>{!! html_entity_decode($fetchbdetail->long_des) !!}.</p>
           <iframe width="560" height="315" src="{{$fetchbdetail->video_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 >>>>>>> parent of 96f427c (fetching done)
+=======
+          <iframe width="560" height="315" src="{{$fetch->video_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+>>>>>>> parent of 50a6e01 (frontend fetching and backend certificate too)
         
         
         </div>

@@ -38,7 +38,6 @@ use App\Http\Controllers\Backend\Course\CourseQuestionController;
 use App\Http\Controllers\Backend\Course\CourseMaterialsController;
 use App\Http\Controllers\Backend\Course\CourseInstructorController;
 use App\Http\Controllers\Backend\Course\CoursesSubCategoryController;
-use App\Http\Controllers\Backend\CertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -353,19 +352,6 @@ Route::middleware(['auth', 'redirect.only.admins'])->group(function () {
 
     //end course Materails routes
 
-    Route::controller(CertificateController::class)->group(function () {
-        Route::get("/create_certificate", 'certificatecreate')->name('create_certificate');
-        Route::post('store_certificate', 'store')->name('store.certificate');
-        Route::get('list_certificate', 'list')->name('list_certificate');
-        Route::get('deletecertificate/{id}', 'delete')->name('deletecertificate');
-        Route::get('editcertificate/{id}', 'edit')->name('editcertificate');
-        Route::put('update_certificate/{id}', 'update')->name('update.certificate');
-        Route::get('/verify-certificate/{code}',  'verifyCertificate')->name('verify.certificate');
-        // Route::post('/verify-certificate',  'verifyCertificate')->name('verify.certificate');
-       
-    });
-
-
     //course Test Question Routes
 
     Route::prefix('coursetestquestion')->as('coursetestquestion-')->group(function () {
@@ -491,43 +477,24 @@ Route::middleware(['auth', 'redirect.only.user'])->group(function () {
 });
 // Route::get('/certificate', [HomeController::class,  "certificate"]);
 // Route::post('/search',[HomeController::class, "search"]);
-Route::get('/view-certificate/{id}', [CertificateController::class,  "view"])->name('view_certificate');
-Route::get('/certificate', [HomeController::class,  "certificate"]);
-Route::post('/search',[HomeController::class, "search"]);
-
 
 Route::controller(HomeController::class)->group(function () {
     // group discussion
 Route::get('/', 'mainpage');
 Route::get('home', 'mainpage');
-Route::get('aboutus', 'aboutus');
-Route::get('contactus', 'contactus');
-Route::post('/contactuspost',"contactuspost");
-
-Route::get('membership', 'membership');
-Route::post('/membershipformpost',"membershipformpost");
-
-Route::get('allhinduisms','allhinduism')->name('allhinduism');
+Route::get('allhinduism','allhinduism')->name('allhinduism');
 Route::get('hinduism/{slug}', 'hinduism')->name('hinduism');
 Route::get('hinduismdetail/{slug}', 'hinduismdetail')->name('hinduismdetail');
 
-Route::get('allarticles','allarticle')->name('allarticle');
+Route::get('allarticle','allarticle')->name('allarticle');
 Route::get('article/{slug}', 'article')->name('article');
 Route::get('articledetail/{slug}', 'articledetail')->name('articledetail');
 
-Route::get('allcollaborations','allcollaboration')->name('allcollaboration');
+Route::get('allcollaboration','allcollaboration')->name('allcollaboration');
 Route::get('collaboration/{slug}', 'collaboration')->name('collaboration');
 Route::get('collaborationdetail/{slug}', 'collaborationdetail')->name('collaborationdetail');
 
-Route::get('allevents','allevent')->name('allevent');
-Route::get('event/{slug}', 'event')->name('event');
-Route::get('eventdetail/{slug}', 'eventdetail')->name('eventdetail');
-
-Route::get('allannouncements','allannouncement')->name('allannouncement');
-Route::get('announcement/{slug}', 'announcement')->name('announcement');
-Route::get('announcementdetail/{slug}', 'announcementdetail')->name('announcementdetail');
-
-Route::get('allkathas','allkatha')->name('allkatha');
+Route::get('allkatha','allkatha')->name('allkatha');
 Route::get('katha/{slug}', 'katha')->name('katha');
 Route::get('kathadetail/{slug}', 'kathadetail')->name('kathadetail');
 
@@ -538,18 +505,10 @@ Route::post('/course-reviews',"reviewstore")->name('course-reviews.store');
 
 
 
-Route::get('/jobclassifieds',  'jobclassified');
+Route::get('/jobclassified',  'jobclassified');
 Route::get('/jobclassifieddetail/{slug}', 'jobclassifieddetail');
-Route::get('/mediacenters',  'mediacenter');
+Route::get('/mediacenter',  'mediacenter');
 Route::get('/mediacenterdetail/{slug}', 'mediacenterdetail');
-
-Route::get('/mantras',  'businesspromotion');
-Route::get('/mantradetail/{slug}', 'businesspromotiondetail');
-
-
-
-Route::get('/teams',  'team');
-Route::get('/teamdetail/{slug}', 'teamdetail');
 
 Route::get('testyourskills', 'testyourskill')->name('testyourskills');
 Route::get('department', 'departments')->name('department');

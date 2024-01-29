@@ -31,7 +31,16 @@
                                           @enderror
                                       </div>
                                   </div>
-                                 
+                                  <div class="mb-3">
+                                    <label class="form-label">Select Country</label>
+                                    <select class="form-select" name="countryid" required>
+                                        <option value="">--- Select Country ---</option>
+                                        @foreach ($country as $curr)
+                                            <option value="{{ $curr->id }}">{{ $curr->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                                   <div class="col-12">
                                     <div class="form-group">

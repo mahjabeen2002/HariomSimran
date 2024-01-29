@@ -12,7 +12,7 @@
 
     <style>
 .search-container{
-    background: #7e4555;-
+    background: #5cbdbb;
     height: 30px;
     border-radius: 30px;
     padding: 10px 20px;
@@ -51,7 +51,7 @@
 }
 
 .search-container .search-btn .fas{
-    color: #7e4555;
+    color: #5cbdbb;
 }
 
 @keyframes hoverShake {
@@ -113,32 +113,26 @@
                 <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Certificate Id</th>
-                        <th scope="col">User Name</th>
-                        <th scope="col">Insitute Name</th>
-                        <th scope="col"> Heading</th>
-                        <th scope="col"> Description</th>
-                        <th scope="col">Issue Date</th>
-                        <th scope="col">View Certificate</th>
+                    <th scope="col">Certificate Id</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Remark</th>
+                    <th scope="col">Issue Date</th>
+                    <th scope="col">Participate Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if(count($certificate) >0)
                         @foreach($certificate as $c)
                             <tr>
-                                <td>{{$c->verification_code}}</td>
-                                <?php
-                                $f = DB::table('users')->where('id',$c->user_id)->first();
-                                ?>
-                            <td>{{ $f->name }}</td>
-                                <td>{{$c->institute_name}}</td>
-                                <td>{{$c->heading}}</td>
-                                <td>{{$c->description}}</td>
-                                <td>{{$c->issue_date}}</td>
-                                {{-- <td>{{$c->partdate}}</td> --}}
-                                <td> <a href="{{ route('view_certificate', ['id' => $c->id]) }}" style="margin-left: 10px;">
-                                   <i class="fa fa-eye" aria-hidden="true"></i>
-                                </a></td>
+                                <td>{{$c->certificate_id}}</td>
+                                <td>{{$c->firstname}}</td>
+                                <td>{{$c->lastname}}</td>
+                                <td>{{$c->genre}}</td>
+                                <td>{{$c->remark}}</td>
+                                <td>{{$c->issuedate}}</td>
+                                <td>{{$c->partdate}}</td>
                             </tr>
                         @endforeach
                     @endif

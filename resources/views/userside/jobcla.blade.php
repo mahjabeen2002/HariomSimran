@@ -29,18 +29,18 @@
   <div class="container">
     <div class="row">
 
-      @foreach($fetch as $fj)
+      @foreach($fetchjob as $fj)
 
       <div class="col-lg-4 col-md-6">
-        <a href="/jobclassifieddetail/{{$fj->slug}}" class="sigma_service style-2">
+        <a href="/jobdetail/{{$fj->Title}}/{{$fj->id}}" class="sigma_service style-2">
           <div class="sigma_service-thumb">
-          <img  src="{{ asset('/uploads/jobclassified/' . $fj->image) }}" style="height: 200px;width: 100%" alt="img">
+          <img  src="/jobimages/{{$fj->image}}" style="height: 200px;width: 100%" alt="img">
             <i class="flaticon-powder"></i>
           </div>
           <div class="sigma_service-body">
-            <h5>{{$fj->title}}</h5>
+            <h5>{{$fj->Title}}</h5>
             <p><?php
-              $f1 = strip_tags($fj->description);
+              $f1 = strip_tags($fj->short_Des);
               $f2 = Str::limit($f1,50);
             
              ?> {{$f2}} </p>
@@ -50,7 +50,7 @@
 @endforeach
     </div>
     <ul class="pagination mb-0">
-      {{$fetch->links()}}
+      {{$fetchjob->links()}}
     </ul>
   </div>
 </div>
