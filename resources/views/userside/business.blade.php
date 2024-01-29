@@ -32,15 +32,15 @@
       @foreach($fetchbus as $fb)
 
       <div class="col-lg-4 col-md-6">
-        <a href="/mantradetail/{{$fb->Title}}/{{$fb->id}}" class="sigma_service style-2">
+        <a href="/mantradetail/{{$fb->title}}/{{$fb->id}}" class="sigma_service style-2">
           <div class="sigma_service-thumb">
           <img  src="/busimages/{{$fb->image}}" style="height: 200px;width: 100%" alt="img">
             <i class="flaticon-powder"></i>
           </div>
           <div class="sigma_service-body">
-            <h5>{{$fb->Title}}</h5>
+            <h5>{{$fb->title}}</h5>
             <p><?php
-              $f1 = strip_tags($fb->short_Des);
+              $f1 = strip_tags($fb->description);
               $f2 = Str::limit($f1,50);
             
              ?> {{$f2}} </p>

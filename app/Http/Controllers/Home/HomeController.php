@@ -294,5 +294,23 @@ class HomeController extends Controller
 
         return redirect()->back()->with('success', 'Review added successfully.');
     }
+    public function allannouncement()
+    {
+        $fetchacat = Category::all();
+        $fetch = Announcement::paginate(6);
+        $fetchc = Announcement::count();
+        return view('userside.allannouncement', compact('fetch','fetchacat','fetchc'));
+    }
 
+    public function announcement($slug)
+    {  $fetchacat = Category::all();
+        $fetch = Announcement::where('category_id',$slug)->paginate(6);
+        $fetchc = Announcement::where('category_id',$slug)->count();
+        return view('userside.announcement', compact('fetch','fetchc','fetchacat'));
+    }
+    public function announcementdetail($slug)
+    {
+        $fetch = Announcement::where('slug',$slug)->first();
+        return view('userside.announcementdetail', compact('fetch'));
+    }
 }

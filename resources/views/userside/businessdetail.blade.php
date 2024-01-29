@@ -2,22 +2,20 @@
 @section("title")
 <head>
 <?php
-    $ptitle = str_replace(' ', '%20', $fetchbdetail->Title);
-    $pdes = strip_tags($fetchbdetail->long_des);
+    $ptitle = str_replace(' ', '%20', $fetchbdetail->title);
+    $pdes = strip_tags($fetchbdetail->description);
     ?>
-    <title> {{$fetchbdetail->Title}}</title>
+    <title> {{$fetchbdetail->title}}</title>
 <meta name="description" content="{{$pdes}}" />
 <<<<<<< HEAD
 <<<<<<< HEAD
 <meta property="og:image" content="http://hariomsimran.com/uploads/businesspromotion/{{$fetch->image}}" />
 =======
 <meta property="og:image" content="http://hariomsimran.com/busimages/{{$fetch->image}}" />
->>>>>>> parent of 50a6e01 (frontend fetching and backend certificate too)
 <meta property="og:url" content="http://hariomsimran.com/mantradetail/{{$ptitle}}/{{$fetch->id}}" />
 =======
 <meta property="og:image" content="http://hariomsimran.com/busimages/{{$fetchbdetail->image}}" />
 <meta property="og:url" content="http://hariomsimran.com/mantradetail/{{$ptitle}}/{{$fetchbdetail->id}}" />
->>>>>>> parent of 96f427c (fetching done)
 <meta property="og:type" content="website" /> 
 <meta name="keywords" content="HariomSimran" />
 </head>
@@ -78,7 +76,7 @@
          </ul>
         </div>
         <div class="col-md-8">
-          <h3 class="name font-24 mt-0 mb-0" style="font-size: 40px">{{$fetchbdetail->Title}}</h3>
+          <h3 class="name font-24 mt-0 mb-0" style="font-size: 40px">{{$fetchbdetail->title}}</h3>
           
         
 <<<<<<< HEAD
@@ -86,7 +84,7 @@
 <<<<<<< HEAD
           <iframe width="560" height="315" src="{{$fetch->videourl}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 =======
-          <p>{!! html_entity_decode($fetchbdetail->long_des) !!}.</p>
+          <p>{!! html_entity_decode($fetchbdetail->description) !!}.</p>
           <iframe width="560" height="315" src="{{$fetchbdetail->video_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 >>>>>>> parent of 96f427c (fetching done)
 =======
