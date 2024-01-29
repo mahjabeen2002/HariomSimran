@@ -2,13 +2,18 @@
 @section("title")
 <head>
 <?php
-    $ptitle = str_replace(' ', '%20', $fetch->title);
-    $pdes = strip_tags($fetch->description);
+    $ptitle = str_replace(' ', '%20', $fetchbdetail->Title);
+    $pdes = strip_tags($fetchbdetail->long_des);
     ?>
-    <title> {{$fetch->title}}</title>
+    <title> {{$fetchbdetail->Title}}</title>
 <meta name="description" content="{{$pdes}}" />
+<<<<<<< HEAD
 <meta property="og:image" content="http://hariomsimran.com/uploads/businesspromotion/{{$fetch->image}}" />
 <meta property="og:url" content="http://hariomsimran.com/mantradetail/{{$ptitle}}/{{$fetch->id}}" />
+=======
+<meta property="og:image" content="http://hariomsimran.com/busimages/{{$fetchbdetail->image}}" />
+<meta property="og:url" content="http://hariomsimran.com/mantradetail/{{$ptitle}}/{{$fetchbdetail->id}}" />
+>>>>>>> parent of 96f427c (fetching done)
 <meta property="og:type" content="website" /> 
 <meta name="keywords" content="HariomSimran" />
 </head>
@@ -40,12 +45,16 @@
       <div class="row">
         <div class="col-md-4">
           <div class="thumb">
-            <img src="{{ asset('/uploads/businesspromotion/' . $fetch->image) }}" alt="" width="300px" height="300px">
+            <img src="/busimages/{{$fetchbdetail->image}}" alt="" width="300px" height="300px">
           </div> <br>
           <ul>
             <h3>Share On:</h3>
           <?php
+<<<<<<< HEAD
                                 $url = urlencode("http://hariomsimran.com/mantradetail/$fetch->slug");
+=======
+                                $url = urlencode("http://hariomsimran.com/mantradetail/$ptitle/$fetchbdetail->id");
+>>>>>>> parent of 96f427c (fetching done)
                                 ?> <a style="background-color:#f0c2c2" target="_blank" href="https://www.facebook.com/sharer.php?u={{$url}}" class="btn btn--small btn--secondary fab fa-facebook-f" title="Share on Facebook">
                                     <i style="color:black" class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title sizeicon" aria-hidden="true"></span>
                                 </a>
@@ -61,11 +70,16 @@
          </ul>
         </div>
         <div class="col-md-8">
-          <h3 class="name font-24 mt-0 mb-0" style="font-size: 40px">{{$fetch->title}}</h3>
+          <h3 class="name font-24 mt-0 mb-0" style="font-size: 40px">{{$fetchbdetail->Title}}</h3>
           
         
+<<<<<<< HEAD
           <p>{!! html_entity_decode($fetch->description) !!}.</p>
           <iframe width="560" height="315" src="{{$fetch->videourl}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+=======
+          <p>{!! html_entity_decode($fetchbdetail->long_des) !!}.</p>
+          <iframe width="560" height="315" src="{{$fetchbdetail->video_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+>>>>>>> parent of 96f427c (fetching done)
         
         
         </div>
